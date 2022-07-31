@@ -1,7 +1,7 @@
-from setuptools import find_packages, setup
 import io
 import os
 
+from setuptools import find_packages, setup
 
 NAME = "delivery_service"
 DESCRIPTION = ""

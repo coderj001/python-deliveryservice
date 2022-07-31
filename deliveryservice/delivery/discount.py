@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Dict
+from typing import Dict, List
 
 
 @dataclass
@@ -41,6 +41,10 @@ class Discounts:
     def add_discount(self, discount: Discount):
         self.discounts.append(discount)
 
+    def add_list_of_discount(self, discounts: List[Discount]):
+        for discount in discounts:
+            self.add_discount(discount)
+
     def calculateDiscountAmount(self, cost: int) -> int:
         totalDiscountAmount: int = 0
         for i in self.discounts:
@@ -63,18 +67,10 @@ coupons: Dict[str, str] = {
 }
 
 
-def MockAllDiscounts() -> List[Discount]:
-    allDiscounts: List[Discount] = []
-    allDiscounts.append(
-        Discount(coupons=coupons.get(coupons.get("coupon1"), 10, 0, 200, 70, 200))
-    )
-    allDiscounts.append(
-        Discount(coupons=coupons.get(coupons.get("coupon2"), 7, 50, 150, 100, 250))
-    )
-    allDiscounts.append(
-        Discount(coupons=coupons.get(coupons.get("coupon3"), 7, 50, 150, 100, 250))
-    )
-    allDiscounts.append(
-        Discount(coupons=coupons.get(coupons.get("coupon4"), 5, 50, 250, 10, 150))
-    )
+def mockAllDiscounts() -> Discounts:
+    allDiscounts=Discounts()
+    allDiscounts.add_discount(Discount("OFR001", 10, 0, 200, 70, 200))
+    allDiscounts.add_discount(Discount("OFR002", 7, 50, 150, 100, 250))
+    allDiscounts.add_discount(Discount("OFFR002", 7, 50, 150, 100, 250))
+    allDiscounts.add_discount(Discount("OFR003", 5, 50, 250, 10, 150))
     return allDiscounts

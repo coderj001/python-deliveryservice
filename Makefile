@@ -24,10 +24,11 @@ docker_build:
 	docker build -t cli .
 
 docker_test:
-	docker run --rm -it pytest .
+	docker run --rm -it --entrypoint "" cli python -m pytest .
 
-run1:
-	docker run --rm -it pytest tests/cli_test.py::test_cost
 
-run2:
-	docker run --rm -it pytest tests/cli_test.py::test_time
+docker_run1:
+	docker run --rm -it --entrypoint "" cli python -m pytest tests/cli_test.py::test_cost
+
+docker_run2:
+	docker run --rm -it --entrypoint "" cli python -m pytest tests/cli_test.py::test_time

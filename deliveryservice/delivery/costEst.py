@@ -29,7 +29,10 @@ def calculatePakcageGroups(max_load: int, packages: List[Package]) -> PackageGro
                     packageItems = Packages()
                     packageItems.add_package(packages.packages[i])
 
-                    if packages.packages[j].weight + packageItems.getTotalWeight() <= max_load:
+                    if (
+                        packages.packages[j].weight + packageItems.getTotalWeight()
+                        <= max_load
+                    ):
                         packageItems = Packages()
                         packageItems.add_package(packages.packages[i])
                 group.add_package_group(packageItems)

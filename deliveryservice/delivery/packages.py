@@ -47,7 +47,7 @@ class Packages:
                 additional_time + float(i.distance) / float(max_speed)
             )
 
-    def getTotalDeliveryTime(self)-> float:
+    def getTotalDeliveryTime(self) -> float:
         deliveryTime: float
         for i in self.packages:
             if deliveryTime < i.delivery_time:
@@ -55,7 +55,7 @@ class Packages:
 
         return deliveryTime
 
-    def containsPackage(self, package: Package)-> bool:
+    def containsPackage(self, package: Package) -> bool:
         for pkg in self.packages[0].packages:
             if pkg.pkg_id == package.pkg_id:
                 return True

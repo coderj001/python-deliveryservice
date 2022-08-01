@@ -82,15 +82,21 @@ def calculateDeliveryTimeEstimation(
         if len(packageGroups.pkg_grp) == index:
             break
         for i in vehicles.vehicles:
-            packageGroups.packages[index].set_delivery_time_for_packages(i.max_speed, i.next_delivery_time)
-            i.set_next_delivery_time(packageGroups.packages[index].getTotalDeliveryTime())
-            index+=1
+            packageGroups.packages[index].set_delivery_time_for_packages(
+                i.max_speed, i.next_delivery_time
+            )
+            i.set_next_delivery_time(
+                packageGroups.packages[index].getTotalDeliveryTime()
+            )
+            index += 1
 
-    p=packageGroups.convertToPackages()
+    p = packageGroups.convertToPackages()
 
     output = ""
     for p in p.packages:
-        output += "{} {} {} {}\n".format(p.pkg_id, p.discount_cost, p.total_cost, p.delivery_time)
+        output += "{} {} {} {}\n".format(
+            p.pkg_id, p.discount_cost, p.total_cost, p.delivery_time
+        )
     print(output)
 
 

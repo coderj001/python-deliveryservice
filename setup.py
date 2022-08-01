@@ -4,8 +4,8 @@ import os
 from setuptools import find_packages, setup
 
 NAME = "delivery_service"
-DESCRIPTION = ""
-URL = ""
+DESCRIPTION = "Coding assigment baised on delivery service"
+URL = "https://github.com/coderj001/python-deliveryservice"
 EMAIL = "rajughorai41410@gmail.com"
 AUTHOR = "Raju Ghorai"
 REQUIRES_PYTHON = ">=3.10.0"

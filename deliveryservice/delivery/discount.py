@@ -68,7 +68,7 @@ coupons: Dict[str, str] = {
 
 
 def mockAllDiscounts() -> Discounts:
-    allDiscounts=Discounts()
+    allDiscounts = Discounts()
     allDiscounts.add_discount(Discount("OFR001", 10, 0, 200, 70, 200))
     allDiscounts.add_discount(Discount("OFR002", 7, 50, 150, 100, 250))
     allDiscounts.add_discount(Discount("OFFR002", 7, 50, 150, 100, 250))

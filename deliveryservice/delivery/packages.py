@@ -18,13 +18,13 @@ class Packages:
         for pkg in packages:
             self.packages.append(pkg)
 
-    def length(self) -> int:
+    def __len__(self) -> int:
         return len(self.packages)
 
-    def swap(self, i: int, j: int):
-        self.packages[i], self.packages[j] = self.packages[j], self.packages[i]
+    # def swap(self, i: int, j: int):
+    #     self.packages[i], self.packages[j] = self.packages[j], self.packages[i]
 
-    def less(self, i: int, j: int) -> bool:
+    def __lt__(self, i: int, j: int) -> bool:
         return self.packages[i].weight < self.packages[j].weight
 
     def getTotalWeight(self) -> int:
@@ -40,3 +40,23 @@ class Packages:
 
         for pkg in self.packages:
             pkg.calculateDeliveryCost()
+
+    def set_delivery_time_for_packages(self, max_speed: int, additional_time: float):
+        for i in self.packages:
+            i.delivery_time = round(
+                additional_time + float(i.distance) / float(max_speed)
+            )
+
+    def getTotalDeliveryTime(self)-> float:
+        deliveryTime: float
+        for i in self.packages:
+            if deliveryTime < i.delivery_time:
+                deliveryTime = p.delivery_time
+
+        return deliveryTime
+
+    def containsPackage(self, package: Package)-> bool:
+        for pkg in self.packages[0].packages:
+            if pkg.pkg_id == package.pkg_id:
+                return True
+        return False

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from delivery.discount import Discounts
+from deliveryservice.delivery.discount import Discounts
 
 
 @dataclass
@@ -57,4 +57,4 @@ class Package:
         totalCost = self.base_cost + (self.weight * 10) + (self.distance * 5)
         if self.isDiscountApplicable():
             self.discount_cost = self.discounts.calculateDiscountAmount(totalCost)
-        self.total_cost = totalCost - self.discount_cost
+        self.total_cost = int(totalCost - self.discount_cost)

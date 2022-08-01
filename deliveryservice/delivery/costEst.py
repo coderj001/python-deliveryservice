@@ -1,7 +1,8 @@
 from typing import List
-from delivery.packages import Packages
-from delivery.packagegrp import PackageGroup
-from delivery.package import Package
+
+from deliveryservice.delivery.package import Package
+from deliveryservice.delivery.packagegrp import PackageGroup
+from deliveryservice.delivery.packages import Packages
 
 
 def calculatePakcageGroups(max_load: int, packages: List[Package]) -> PackageGroup:

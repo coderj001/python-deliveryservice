@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List
 
-from delivery.package import Package
+from deliveryservice.delivery.package import Package
 
 
 @dataclass
@@ -51,7 +51,7 @@ class Packages:
         deliveryTime: float
         for i in self.packages:
             if deliveryTime < i.delivery_time:
-                deliveryTime = p.delivery_time
+                deliveryTime = i.delivery_time
 
         return deliveryTime
 

@@ -28,7 +28,7 @@ class Discount:
         self.max_package_weight = max_package_weight
 
     def calculateDiscountAmount(self, cost: int) -> int:
-        return cost / 100 * self.percentage
+        return int(cost / 100 * self.percentage)
 
 
 @dataclass

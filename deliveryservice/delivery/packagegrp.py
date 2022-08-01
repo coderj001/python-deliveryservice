@@ -1,6 +1,6 @@
 from typing import List
 
-from delivery.packages import Packages
+from deliveryservice.delivery.packages import Packages
 
 
 class PackageGroup:

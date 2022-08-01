@@ -10,7 +10,7 @@ EMAIL = "rajughorai41410@gmail.com"
 AUTHOR = "Raju Ghorai"
 REQUIRES_PYTHON = ">=3.10.0"
 VERSION = "1.0.0"
-REQUIRE = ["typer[all]", "pydentic"]
+REQUIRE = ["typer[all]", "pydentic", "pytest"]
 
 EXTRA = {"Code Formationg": ["black", "isort"]}
 

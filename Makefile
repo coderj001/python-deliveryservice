@@ -4,7 +4,8 @@ APPLICATION=python-deliveryservice
 
 venv:
 	virtualenv venv
-	source ./venv/bin/activate
+	. $(dir $(realpath $(lastword $(MAKEFILE_LIST))))venv/bin/activate
+
 
 build:
 	pip install -e .

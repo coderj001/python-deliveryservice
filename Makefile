@@ -8,17 +8,17 @@ venv:
 
 
 build:
-	pip install -e .
-	python setup.py build
+	./venv/bin/activate; pip install -e .
+	./venv/bin/activate; python setup.py build
 
 test:
-	pytest .
+	./venv/bin/activate; pytest .
 
 run1:
-	pytest tests/cli_test.py::test_cost
+	./venv/bin/activate; pytest tests/cli_test.py::test_cost
 
 run2:
-	pytest tests/cli_test.py::test_time
+	./venv/bin/activate; pytest tests/cli_test.py::test_time
 
 # Docker
 docker_build:

@@ -2,35 +2,36 @@ from typing import List, Optional
 
 import typer
 from rich import print
+from typer import Typer
 
-from deliveryservice.delivery.costEst import calculatePakcageGroups
-from deliveryservice.delivery.discount import Discounts, mockAllDiscounts
+from deliveryservice.delivery.cost_est import calculate_package_groups
+from deliveryservice.delivery.discount import Discounts, mock_all_discounts
 from deliveryservice.delivery.package import Package
 from deliveryservice.delivery.packages import Packages
 from deliveryservice.delivery.vehicle import Vehicles
 
-app = typer.Typer()
+app = typer.Typer()  # type: Typer
 
 
-def costForPackages(base_delivery_price: int, total_packages: int) -> Packages:
+def cost_for_packages(base_delivery_price: int, total_packages: int) -> Packages:
     # find delivery cost for packages
     all_packages = Packages()
-    discounts = mockAllDiscounts()
+    discounts = mock_all_discounts()
 
     print(base_delivery_price, total_packages, sep=",")
     print("Enter package_id, weight, distance, coupon (with space)")
     for _ in range(0, total_packages):
         values = input()
         list_values: List[str | int] = values.split(" ")
-        package_id, weight, distance, coupon = (
+        package_id, weight, distance, coupon = [
             str(list_values[0]),
             int(list_values[1]),
             int(list_values[2]),
             str(list_values[3]),
-        )
+        ]
         # print(package_id, weight, distance, coupon, sep=",")
         _discounts = Discounts()
-        _discounts.add_list_of_discount(discounts.getDiscountByCoupon([coupon]))
+        _discounts.add_list_of_discount(discounts.get_discount_by_coupon([coupon]))
         pkg = Package(
             pkg_id=package_id,
             base_cost=base_delivery_price,
@@ -39,18 +40,18 @@ def costForPackages(base_delivery_price: int, total_packages: int) -> Packages:
             discounts=_discounts,
         )
         all_packages.add_package(pkg)
-    all_packages.calculateDeliveryCost()
+    all_packages.calculate_delivery_cost()
     return all_packages
 
 
 @app.command(name="cost", help="Find delivery cost for packages")
-def findDeliveryCostForPackages(
+def find_delivery_cost_for_packages(
     base_delivery_price: int = typer.Argument(default=None, help="Base delivery price"),
     total_packages: Optional[int] = typer.Argument(
         default=1, help="Total number of packages"
     ),
 ):
-    all_packages = costForPackages(base_delivery_price, total_packages)
+    all_packages = cost_for_packages(base_delivery_price, total_packages)
     output = ""
     for pkg in all_packages.__dict__.get("packages", []):
         output += "{} {} {}\n".format(pkg.pkg_id, pkg.discount_cost, pkg.total_cost)
@@ -64,7 +65,7 @@ def calculateDeliveryTimeEstimation(
         default=1, help="Total number of packages"
     ),
 ):
-    all_packages = costForPackages(base_delivery_price, total_packages)
+    all_packages = cost_for_packages(base_delivery_price, total_packages)
 
     values = input()
     list_values: List[str | int] = values.split(" ")
@@ -75,7 +76,7 @@ def calculateDeliveryTimeEstimation(
     )
     vehicles = Vehicles()
     vehicles.add_vehicles(vehicle_count, vehicle_max_speed, vehicle_max_load)
-    packageGroups = calculatePakcageGroups(vehicle_max_load, all_packages.packages)
+    packageGroups = calculate_package_groups(vehicle_max_load, all_packages.packages)
 
     index = 0
     while True:
@@ -86,11 +87,11 @@ def calculateDeliveryTimeEstimation(
                 i.max_speed, i.next_delivery_time
             )
             i.set_next_delivery_time(
-                packageGroups.packages[index].getTotalDeliveryTime()
+                packageGroups.packages[index].get_total_delivery_time()
             )
             index += 1
 
-    p = packageGroups.convertToPackages()
+    p = packageGroups.convert_to_packages()
 
     output = ""
     for p in p.packages:

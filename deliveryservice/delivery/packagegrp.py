@@ -23,9 +23,9 @@ class PackageGroup:
     #     self.pkg_grp[i], self.pkg_grp[j] = self.pkg_grp[j], self.pkg_grp[i]
 
     def __lt__(self, i: int, j: int) -> bool:
-        return self.pkg_grp[i].getTotalWeight() < self.pkg_grp[j].getTotalWeight()
+        return self.pkg_grp[i].get_total_weight() < self.pkg_grp[j].get_total_weight()
 
-    def convertToPackages(self) -> Packages:
+    def convert_to_packages(self) -> Packages:
         packages = Packages()
         for i in self.pkg_grp:
             packages.add_package(i)

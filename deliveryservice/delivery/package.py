@@ -31,7 +31,7 @@ class Package:
         self.total_cost = 0
         self.delivery_time = 0
 
-    def isDiscountApplicable(self) -> bool:
+    def is_discount_applicable(self) -> bool:
         # Is discount applicable
         ## Checks whether the package has discount or not based on conditions
         ## 1. package weight should be greater or equals to discount minimun package weight
@@ -41,20 +41,19 @@ class Package:
 
         for discount in self.discounts.__dict__.get("discounts"):
             if (
-                discount.min_package_weight <= self.weight
-                and discount.min_destination_distance <= self.distance
-                and self.distance <= discount.max_destination_distance
+                    discount.min_package_weight <= self.weight
+                    and discount.min_destination_distance <= self.distance <= discount.max_destination_distance
             ):
                 return True
         return False
 
-    def calculateDeliveryCost(self):
+    def calculate_delivery_cost(self):
         # Calculate Delivery Cost
-        ## Calculates delivery cost of the package and if there is any discount, it will be discounted from the totalCost of package.
+        ## Calculates delivery cost of the package and if there is any discount, it will be discounted from the total_cost of package.
         ## Formulae:
         ## totalCost_of_Package = (base_cost + (package_weight * 10) + (package_distance * 5)) - discountPrice
 
-        totalCost = self.base_cost + (self.weight * 10) + (self.distance * 5)
-        if self.isDiscountApplicable():
-            self.discount_cost = self.discounts.calculateDiscountAmount(totalCost)
-        self.total_cost = int(totalCost - self.discount_cost)
+        total_cost = self.base_cost + (self.weight * 10) + (self.distance * 5)
+        if self.is_discount_applicable():
+            self.discount_cost = self.discounts.calculate_discount_amount(total_cost)
+        self.total_cost = int(total_cost - self.discount_cost)

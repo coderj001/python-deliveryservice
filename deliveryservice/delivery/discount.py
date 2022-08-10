@@ -45,13 +45,13 @@ class Discounts:
         for discount in discounts:
             self.add_discount(discount)
 
-    def calculateDiscountAmount(self, cost: int) -> int:
-        totalDiscountAmount: int = 0
+    def calculate_discount_amount(self, cost: int) -> int:
+        total_discount_amount: int = 0
         for i in self.discounts:
-            totalDiscountAmount += i.calculateDiscountAmount(cost)
-        return totalDiscountAmount
+            total_discount_amount += i.calculateDiscountAmount(cost)
+        return total_discount_amount
 
-    def getDiscountByCoupon(self, coupons: List[str]) -> List[Discount]:
+    def get_discount_by_coupon(self, coupons: List[str]) -> List[Discount]:
         discounts: List[Discount] = []
         for discount in self.discounts:
             if discount.coupon in coupons:
@@ -67,7 +67,7 @@ coupons: Dict[str, str] = {
 }
 
 
-def mockAllDiscounts() -> Discounts:
+def mock_all_discounts() -> Discounts:
     allDiscounts = Discounts()
     allDiscounts.add_discount(Discount("OFR001", 10, 0, 200, 70, 200))
     allDiscounts.add_discount(Discount("OFR002", 7, 50, 150, 100, 250))

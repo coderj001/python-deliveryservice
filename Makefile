@@ -1,24 +1,24 @@
 .DEFAULT_GOAL := build
 
 APPLICATION=python-deliveryservice
+BIN=venv/bin/
 
 venv:
 	virtualenv venv
-	. $(dir $(realpath $(lastword $(MAKEFILE_LIST))))venv/bin/activate
 
 
 build:
-	./venv/bin/activate; pip install -e .
-	./venv/bin/activate; python setup.py build
+	$(BIN)pip install -e .
+	$(BIN)python setup.py build
 
 test:
-	./venv/bin/activate; pytest .
+	$(BIN)python -m pytest .
 
 run1:
-	./venv/bin/activate; pytest tests/cli_test.py::test_cost
+	$(BIN)python -m pytest tests/cli_test.py::test_cost
 
 run2:
-	./venv/bin/activate; pytest tests/cli_test.py::test_time
+	$(BIN)python -m pytest tests/cli_test.py::test_time
 
 # Docker
 docker_build:

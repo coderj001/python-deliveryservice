@@ -29,7 +29,6 @@ def cost_for_packages(base_delivery_price: int, total_packages: int) -> Packages
             int(list_values[2]),
             str(list_values[3]),
         ]
-        # print(package_id, weight, distance, coupon, sep=",")
         _discounts = Discounts()
         _discounts.add_list_of_discount(discounts.get_discount_by_coupon([coupon]))
         pkg = Package(
@@ -59,7 +58,7 @@ def find_delivery_cost_for_packages(
 
 
 @app.command(name="time", help="Calculate delivery time estimation")
-def calculateDeliveryTimeEstimation(
+def calculate_delivery_time_estimation(
     base_delivery_price: int = typer.Argument(default=None, help="Base delivery price"),
     total_packages: Optional[int] = typer.Argument(
         default=1, help="Total number of packages"

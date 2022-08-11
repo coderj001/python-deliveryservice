@@ -20,8 +20,8 @@ def calculate_package_groups(max_load: int, packages: List[Package]) -> PackageG
                 if i == j:
                     continue
                 if (
-                        packages.packages[j].weight + package_items.get_total_weight()
-                        <= max_load
+                    packages.packages[j].weight + package_items.get_total_weight()
+                    <= max_load
                 ):
                     package_items.add_package(packages.packages[j])
                 else:
@@ -30,8 +30,8 @@ def calculate_package_groups(max_load: int, packages: List[Package]) -> PackageG
                     package_items.add_package(packages.packages[i])
 
                     if (
-                            packages.packages[j].weight + package_items.get_total_weight()
-                            <= max_load
+                        packages.packages[j].weight + package_items.get_total_weight()
+                        <= max_load
                     ):
                         package_items = Packages()
                         package_items.add_package(packages.packages[i])

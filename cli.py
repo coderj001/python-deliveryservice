@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 import typer
 from rich import print
@@ -12,17 +12,20 @@ from deliveryservice.delivery.vehicle import Vehicles
 
 app = typer.Typer()  # type: Typer
 
+discounts = mock_all_discounts()
 
-def cost_for_packages(base_delivery_price: int, total_packages: int) -> Packages:
-    # find delivery cost for packages
+
+@app.command(name="cost", help="Find delivery cost for packages")
+def find_delivery_cost_for_packages(
+    base_delivery_price: int = typer.Option(default=None, help="Base delivery price"),
+    package_details: Optional[List[str]] = typer.Option(
+        [],
+        help="Added details of package with space pkg_id pkg_weight_in_kg distance_in_km offer_code ex: PKG1 5 5 OFR001",
+    ),
+):
     all_packages = Packages()
-    discounts = mock_all_discounts()
-
-    print(base_delivery_price, total_packages, sep=",")
-    print("Enter package_id, weight, distance, coupon (with space)")
-    for _ in range(0, total_packages):
-        values = input()
-        list_values: List[str | int] = values.split(" ")
+    for package_detail in package_details:
+        list_values: List[str | int] = package_detail.split(" ")
         package_id, weight, distance, coupon = [
             str(list_values[0]),
             int(list_values[1]),
@@ -40,39 +43,45 @@ def cost_for_packages(base_delivery_price: int, total_packages: int) -> Packages
         )
         all_packages.add_package(pkg)
     all_packages.calculate_delivery_cost()
-    return all_packages
-
-
-@app.command(name="cost", help="Find delivery cost for packages")
-def find_delivery_cost_for_packages(
-    base_delivery_price: int = typer.Argument(default=None, help="Base delivery price"),
-    total_packages: Optional[int] = typer.Argument(
-        default=1, help="Total number of packages"
-    ),
-):
-    all_packages = cost_for_packages(base_delivery_price, total_packages)
-    output = ""
-    for pkg in all_packages.__dict__.get("packages", []):
+    output: str = ""
+    for pkg in all_packages.packages:
         output += "{} {} {}\n".format(pkg.pkg_id, pkg.discount_cost, pkg.total_cost)
     print(output)
 
 
 @app.command(name="time", help="Calculate delivery time estimation")
 def calculate_delivery_time_estimation(
-    base_delivery_price: int = typer.Argument(default=None, help="Base delivery price"),
-    total_packages: Optional[int] = typer.Argument(
-        default=1, help="Total number of packages"
+    base_delivery_price: int = typer.Option(default=None, help="Base delivery price"),
+    package_details: Optional[List[str]] = typer.Option(
+        [],
+        help="Added details of package with space pkg_id pkg_weight_in_kg distance_in_km offer_code ex: PKG1 5 5 OFR001",
+    ),
+    vehicle_details: Tuple[int, int, int] = typer.Option(
+        (None, None, None),
+        help="Added vehicle details no_of_vehicles max_speed max_carriable_weight ex: 2 70 200",
     ),
 ):
-    all_packages = cost_for_packages(base_delivery_price, total_packages)
+    all_packages = Packages()
+    for package_detail in package_details:
+        list_values: List[str | int] = package_detail.split(" ")
+        package_id, weight, distance, coupon = [
+            str(list_values[0]),
+            int(list_values[1]),
+            int(list_values[2]),
+            str(list_values[3]),
+        ]
+        _discounts = Discounts()
+        _discounts.add_list_of_discount(discounts.get_discount_by_coupon([coupon]))
+        pkg = Package(
+            pkg_id=package_id,
+            base_cost=base_delivery_price,
+            distance=distance,
+            weight=weight,
+            discounts=_discounts,
+        )
+        all_packages.add_package(pkg)
 
-    values = input()
-    list_values: List[str | int] = values.split(" ")
-    vehicle_count, vehicle_max_speed, vehicle_max_load = (
-        int(list_values[0]),
-        int(list_values[1]),
-        int(list_values[2]),
-    )
+    vehicle_count, vehicle_max_speed, vehicle_max_load = vehicle_details
     vehicles = Vehicles()
     vehicles.add_vehicles(vehicle_count, vehicle_max_speed, vehicle_max_load)
     packageGroups = calculate_package_groups(vehicle_max_load, all_packages.packages)

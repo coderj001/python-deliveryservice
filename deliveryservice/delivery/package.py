@@ -41,8 +41,10 @@ class Package:
 
         for discount in self.discounts.__dict__.get("discounts"):
             if (
-                    discount.min_package_weight <= self.weight
-                    and discount.min_destination_distance <= self.distance <= discount.max_destination_distance
+                discount.min_package_weight <= self.weight
+                and discount.min_destination_distance
+                <= self.distance
+                <= discount.max_destination_distance
             ):
                 return True
         return False

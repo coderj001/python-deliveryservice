@@ -18,15 +18,6 @@ class Packages:
         for pkg in packages:
             self.packages.append(pkg)
 
-    def __len__(self) -> int:
-        return len(self.packages)
-
-    # def swap(self, i: int, j: int):
-    #     self.packages[i], self.packages[j] = self.packages[j], self.packages[i]
-
-    def __lt__(self, i: int, j: int) -> bool:
-        return self.packages[i].weight < self.packages[j].weight
-
     def get_total_weight(self) -> int:
         # Get total weight
         ## Iterates through the package and calculates the weight of packages.

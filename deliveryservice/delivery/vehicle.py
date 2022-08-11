@@ -1,6 +1,10 @@
+from dataclasses import dataclass
 from typing import List
+from functools import total_ordering
 
 
+@dataclass
+@total_ordering
 class Vehicle:
     vehicle_id: int
     max_speed: int
@@ -13,6 +17,21 @@ class Vehicle:
         self.max_speed = max_speed
         self.next_delivery_time = 0
 
+    def __lt__(self, obj) -> bool:
+        return self.next_delivery_time < obj.next_delivery_time
+
+    def __gt__(self, obj):
+        return self.next_delivery_time > obj.next_delivery_time
+
+    def __le__(self, obj):
+        return self.next_delivery_time <= obj.next_delivery_time
+
+    def __ge__(self, obj):
+        return self.next_delivery_time >= obj.next_delivery_time
+
+    def __eq__(self, obj):
+        return self.next_delivery_time == obj.next_delivery_time
+
     def set_next_delivery_time(self, total_delivery_time: float):
         self.next_delivery_time = round(2 * total_delivery_time)
 
@@ -22,15 +41,6 @@ class Vehicles:
 
     def __init__(self) -> None:
         self.vehicles = []
-
-    def __len__(self) -> int:
-        return len(self.vehicles)
-
-    # def swap(self, i: int, j: int):
-    #     self.vehicles[i], self.vehicles[j] = self.vehicles[j], self.vehicles[i]
-
-    def __lt__(self, i: int, j: int) -> bool:
-        return self.vehicles[i].next_delivery_time < self.vehicles[j].next_delivery_time
 
     def add_vehicle(self, vehicle: Vehicle):
         self.vehicles.append(vehicle)
@@ -48,3 +58,6 @@ class Vehicles:
                     max_load=vehicle_max_load,
                 )
             )
+
+    def sort_vehicles(self):
+        sorted(self.vehicles)

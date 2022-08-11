@@ -1,4 +1,4 @@
-from typing import List, Optional, Tuple
+from typing import List, Tuple
 
 import typer
 from rich import print
@@ -18,7 +18,7 @@ discounts = mock_all_discounts()
 @app.command(name="cost", help="Find delivery cost for packages")
 def find_delivery_cost_for_packages(
     base_delivery_price: int = typer.Option(default=None, help="Base delivery price"),
-    package_details: Optional[List[str]] = typer.Option(
+    package_details: List[str] = typer.Option(
         [],
         help="Added details of package with space pkg_id pkg_weight_in_kg distance_in_km offer_code ex: PKG1 5 5 OFR001",
     ),
@@ -52,7 +52,7 @@ def find_delivery_cost_for_packages(
 @app.command(name="time", help="Calculate delivery time estimation")
 def calculate_delivery_time_estimation(
     base_delivery_price: int = typer.Option(default=None, help="Base delivery price"),
-    package_details: Optional[List[str]] = typer.Option(
+    package_details: List[str] = typer.Option(
         [],
         help="Added details of package with space pkg_id pkg_weight_in_kg distance_in_km offer_code ex: PKG1 5 5 OFR001",
     ),
@@ -98,7 +98,7 @@ def calculate_delivery_time_estimation(
                 packageGroups.packages[index].get_total_delivery_time()
             )
             index += 1
-
+        vehicles.sort_vehicles()
     p = packageGroups.convert_to_packages()
 
     output = ""

@@ -59,5 +59,5 @@ class Vehicles:
                 )
             )
 
-    def sort_vehicles(self):
-        sorted(self.vehicles)
+    def sort_vehicles(self) -> List[Vehicle]:
+        return sorted(self.vehicles)

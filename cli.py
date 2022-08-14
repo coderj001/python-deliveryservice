@@ -20,7 +20,9 @@ def find_delivery_cost_for_packages(
     base_delivery_price: int = typer.Option(default=None, help="Base delivery price"),
     package_details: List[str] = typer.Option(
         [],
-        help="Added details of package with space pkg_id pkg_weight_in_kg distance_in_km offer_code ex: PKG1 5 5 OFR001",
+        help="""Added details of package with space
+             pkg_id pkg_weight_in_kg distance_in_km offer_code
+        ex: PKG1 5 5 OFR001""",
     ),
 ):
     all_packages = Packages()

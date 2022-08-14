@@ -8,15 +8,23 @@ runner = CliRunner()
 def test_cost():
     result = runner.invoke(
         app,
-        ["cost", "100", "3"],
-        input="PKG1 5 5 OFR001\nPKG2 15 5 OFR002\nPKG3 10 100 OFR003",
+        [
+            "cost",
+            "--base-delivery-price",
+            100,
+            "--package-details",
+            "PKG1 5 5 OFR001",
+            "--package-details",
+            "PKG2 15 5 OFR002",
+            "--package-details",
+            "PKG3 10 100 OFR003"
+        ]
     )
     assert result.exit_code == 0
     output = result.stdout.split("\n")
-    assert output[0] == "100,3"
-    assert output[2] == "PKG1 0 175"
-    assert output[3] == "PKG2 0 275"
-    assert output[4] == "PKG3 35 665"
+    assert output[0] == "PKG1 0 175"
+    assert output[1] == "PKG2 0 275"
+    assert output[2] == "PKG3 35 665"
 
 
 def test_time():

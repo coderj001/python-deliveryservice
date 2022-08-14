@@ -5,9 +5,10 @@ from rich import print
 from typer import Typer
 
 from deliveryservice.delivery.cost_est import calculate_package_groups
-from deliveryservice.delivery.discount import CollectionOfDiscount, mock_all_discounts
+from deliveryservice.delivery.discount import (CollectinOfDiscount,
+                                               mock_all_discounts)
 from deliveryservice.delivery.package import Package
-from deliveryservice.delivery.packages import Packages
+from deliveryservice.delivery.packages import CollectionOfPackage
 from deliveryservice.delivery.vehicle import CollectionOfVehicle
 
 app = typer.Typer()  # type: Typer
@@ -25,7 +26,7 @@ def find_delivery_cost_for_packages(
         ex: PKG1 5 5 OFR001""",
     ),
 ):
-    all_packages = Packages()
+    all_packages = CollectionOfPackage()
     for package_detail in package_details:
         list_values: List[str | int] = package_detail.split(" ")
         package_id, weight, distance, coupon = [
@@ -34,7 +35,7 @@ def find_delivery_cost_for_packages(
             int(list_values[2]),
             str(list_values[3]),
         ]
-        _discounts = CollectionOfDiscount()
+        _discounts = CollectinOfDiscount()
         _discounts.add_list_of_discount(discounts.get_discount_by_coupon([coupon]))
         pkg = Package(
             pkg_id=package_id,
@@ -63,7 +64,7 @@ def calculate_delivery_time_estimation(
         help="Added vehicle details no_of_vehicles max_speed max_carriable_weight ex: 2 70 200",
     ),
 ):
-    all_packages = Packages()
+    all_packages = CollectionOfPackage()
     for package_detail in package_details:
         list_values: List[str | int] = package_detail.split(" ")
         package_id, weight, distance, coupon = [
@@ -72,7 +73,7 @@ def calculate_delivery_time_estimation(
             int(list_values[2]),
             str(list_values[3]),
         ]
-        _discounts = CollectionOfDiscount()
+        _discounts = CollectinOfDiscount()
         _discounts.add_list_of_discount(discounts.get_discount_by_coupon([coupon]))
         pkg = Package(
             pkg_id=package_id,

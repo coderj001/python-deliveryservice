@@ -5,7 +5,7 @@ from deliveryservice.delivery.package import Package
 
 
 @dataclass
-class Packages:
+class CollectionOfPackage:
     packages: List[Package]
 
     def __init__(self):

@@ -32,7 +32,7 @@ class Discount:
 
 
 @dataclass
-class CollectionOfCollectinOfDiscount:
+class CollectinOfDiscount:
     discounts: List[Discount]
 
     def __init__(self) -> None:
@@ -67,8 +67,8 @@ coupons: Dict[str, str] = {
 }
 
 
-def mock_all_discounts() -> CollectionOfCollectinOfDiscount:
-    allDiscounts = CollectionOfCollectinOfDiscount()
+def mock_all_discounts() -> CollectinOfDiscount:
+    allDiscounts = CollectinOfDiscount()
     allDiscounts.add_discount(Discount("OFR001", 10, 0, 200, 70, 200))
     allDiscounts.add_discount(Discount("OFR002", 7, 50, 150, 100, 250))
     allDiscounts.add_discount(Discount("OFFR002", 7, 50, 150, 100, 250))

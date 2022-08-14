@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from typing import List
 from functools import total_ordering
+from typing import List
 
 
 @dataclass
@@ -36,7 +36,7 @@ class Vehicle:
         self.next_delivery_time = round(2 * total_delivery_time)
 
 
-class CollectionOfVehicles:
+class CollectionOfVehicle:
     vehicles: List[Vehicle]
 
     def __init__(self) -> None:

@@ -2,13 +2,14 @@ from typing import List
 
 from deliveryservice.delivery.package import Package
 from deliveryservice.delivery.packagegrp import PackageGroup
-from deliveryservice.delivery.packages import Packages
+from deliveryservice.delivery.packages import CollectionOfPackage
 
-def get_possible_packages(packages: Packages, max_load: int) -> PackageGroup:
+
+def get_possible_packages(packages: CollectionOfPackage, max_load: int) -> PackageGroup:
     group = PackageGroup()
 
     for i in range(0, len(packages)):
-        package_items = Packages()
+        package_items = CollectionOfPackage()
         package_items.add_package(packages.packages[i])
         j = i
         for j in range(0, len(packages)):
@@ -21,20 +22,21 @@ def get_possible_packages(packages: Packages, max_load: int) -> PackageGroup:
                 package_items.add_package(packages.packages[j])
             else:
                 group.add_package_group(package_items)
-                package_items = Packages()
+                package_items = CollectionOfPackage()
                 package_items.add_package(packages.packages[i])
 
                 if (
                     packages.packages[j].weight + package_items.get_total_weight()
                     <= max_load
                 ):
-                    package_items = Packages()
+                    package_items = CollectionOfPackage()
                     package_items.add_package(packages.packages[i])
             group.add_package_group(package_items)
     return group
 
+
 def calculate_package_groups(max_load: int, packages: List[Package]) -> PackageGroup:
-    remaining_packages = Packages()
+    remaining_packages = CollectionOfPackage()
     remaining_packages.add_list_of_package(packages)
 
     to_be_delivered_packages = PackageGroup()
@@ -42,7 +44,7 @@ def calculate_package_groups(max_load: int, packages: List[Package]) -> PackageG
         if len(remaining_packages.packages) == 0:
             break
         packages_group = get_possible_packages(remaining_packages, max_load)
-        remaining_packages = Packages()
+        remaining_packages = CollectionOfPackage()
         if len(packages_group.pkg_grp) > 0:
             to_be_delivered_packages.add_package_group(packages_group.pkg_grp[0])
         for pkg in packages:

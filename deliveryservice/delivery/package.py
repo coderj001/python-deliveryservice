@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from deliveryservice.delivery.discount import CollectionOfCollectinOfDiscount
+from deliveryservice.delivery.discount import CollectinOfDiscount
 
 
 @dataclass
@@ -12,7 +12,7 @@ class Package:
     total_cost: int
     discount_cost: int
     delivery_time: float
-    discounts: CollectionOfCollectinOfDiscount
+    discounts: CollectinOfDiscount
 
     def __init__(
         self,
@@ -20,7 +20,7 @@ class Package:
         base_cost: int,
         distance: int,
         weight: int,
-        discounts: CollectionOfCollectinOfDiscount,
+        discounts: CollectinOfDiscount,
     ) -> None:
         self.pkg_id = pkg_id
         self.base_cost = base_cost

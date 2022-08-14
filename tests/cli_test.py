@@ -17,8 +17,8 @@ def test_cost():
             "--package-details",
             "PKG2 15 5 OFR002",
             "--package-details",
-            "PKG3 10 100 OFR003"
-        ]
+            "PKG3 10 100 OFR003",
+        ],
     )
     assert result.exit_code == 0
     output = result.stdout.split("\n")

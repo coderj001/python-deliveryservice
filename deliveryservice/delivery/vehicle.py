@@ -36,7 +36,7 @@ class Vehicle:
         self.next_delivery_time = round(2 * total_delivery_time)
 
 
-class Vehicles:
+class CollectionOfVehicles:
     vehicles: List[Vehicle]
 
     def __init__(self) -> None:

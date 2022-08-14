@@ -5,10 +5,10 @@ from rich import print
 from typer import Typer
 
 from deliveryservice.delivery.cost_est import calculate_package_groups
-from deliveryservice.delivery.discount import Discounts, mock_all_discounts
+from deliveryservice.delivery.discount import CollectionOfDiscount, mock_all_discounts
 from deliveryservice.delivery.package import Package
 from deliveryservice.delivery.packages import Packages
-from deliveryservice.delivery.vehicle import Vehicles
+from deliveryservice.delivery.vehicle import CollectionOfVehicle
 
 app = typer.Typer()  # type: Typer
 
@@ -34,7 +34,7 @@ def find_delivery_cost_for_packages(
             int(list_values[2]),
             str(list_values[3]),
         ]
-        _discounts = Discounts()
+        _discounts = CollectionOfDiscount()
         _discounts.add_list_of_discount(discounts.get_discount_by_coupon([coupon]))
         pkg = Package(
             pkg_id=package_id,
@@ -72,7 +72,7 @@ def calculate_delivery_time_estimation(
             int(list_values[2]),
             str(list_values[3]),
         ]
-        _discounts = Discounts()
+        _discounts = CollectionOfDiscount()
         _discounts.add_list_of_discount(discounts.get_discount_by_coupon([coupon]))
         pkg = Package(
             pkg_id=package_id,
@@ -84,7 +84,7 @@ def calculate_delivery_time_estimation(
         all_packages.add_package(pkg)
 
     vehicle_count, vehicle_max_speed, vehicle_max_load = vehicle_details
-    vehicles = Vehicles()
+    vehicles = CollectionOfVehicle()
     vehicles.add_vehicles(vehicle_count, vehicle_max_speed, vehicle_max_load)
     packageGroups = calculate_package_groups(vehicle_max_load, all_packages.packages)
 

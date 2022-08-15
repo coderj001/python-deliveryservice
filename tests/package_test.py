@@ -1,5 +1,4 @@
-from deliveryservice.delivery.discount import (CollectionOfDiscount, Discount,
-                                               mock_all_discounts)
+from deliveryservice.delivery.discount import (CollectionOfDiscount, Discount)
 from deliveryservice.delivery.package import Package
 
 

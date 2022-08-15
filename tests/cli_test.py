@@ -48,7 +48,7 @@ def test_time():
             2,
             70,
             200,
-        ]
+        ],
     )
     assert result.exit_code == 0
     output = result.stdout.split("\n")

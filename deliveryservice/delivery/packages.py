@@ -15,28 +15,19 @@ class CollectionOfPackage:
         return len(self.packages)
 
     def __lt__(self, obj) -> bool:
-        if len(self.packages) == len(obj.packages):
-            return self.get_total_weight() < obj.get_total_weight()
-        return len(self.packages) < len(self.packages)
+        return self.get_total_weight() < obj.get_total_weight()
 
     def __gt__(self, obj):
-        if len(self.packages) == len(obj.packages):
-            return self.get_total_weight() > obj.get_total_weight()
-        return len(self.packages) > len(self.packages)
+        return self.get_total_weight() > obj.get_total_weight()
 
     def __le__(self, obj):
-        if len(self.packages) == len(obj.packages):
-            return self.get_total_weight() <= obj.get_total_weight()
-        return len(self.packages) < len(self.packages)
+        return self.get_total_weight() <= obj.get_total_weight()
 
     def __ge__(self, obj):
-        if len(self.packages) == len(obj.packages):
-            return self.get_total_weight() >= obj.get_total_weight()
-        return len(self.packages) > len(self.packages)
+        return self.get_total_weight() >= obj.get_total_weight()
 
     def __eq__(self, obj):
-        if len(self.packages) == len(obj.packages):
-            return self.get_total_weight() == obj.get_total_weight()
+        return self.get_total_weight() == obj.get_total_weight()
 
     def sort_packages(self) -> None:
         self.packages = sorted(self.packages)

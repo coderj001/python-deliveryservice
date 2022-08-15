@@ -1,9 +1,9 @@
-from dataclasses import dataclass
+from functools import total_ordering
 
-from deliveryservice.delivery.discount import CollectinOfDiscount
+from deliveryservice.delivery.discount import CollectionOfDiscount
 
 
-@dataclass
+@total_ordering
 class Package:
     pkg_id: str
     distance: int
@@ -12,7 +12,7 @@ class Package:
     total_cost: int
     discount_cost: int
     delivery_time: float
-    discounts: CollectinOfDiscount
+    discounts: CollectionOfDiscount
 
     def __init__(
         self,
@@ -20,7 +20,7 @@ class Package:
         base_cost: int,
         distance: int,
         weight: int,
-        discounts: CollectinOfDiscount,
+        discounts: CollectionOfDiscount,
     ) -> None:
         self.pkg_id = pkg_id
         self.base_cost = base_cost
@@ -31,6 +31,21 @@ class Package:
         self.total_cost = 0
         self.delivery_time = 0
 
+    def __lt__(self, obj) -> bool:
+        return self.weight < obj.weight
+
+    def __gt__(self, obj):
+        return self.weight > obj.weight
+
+    def __le__(self, obj):
+        return self.weight <= obj.weight
+
+    def __ge__(self, obj):
+        return self.weight >= obj.weight
+
+    def __eq__(self, obj):
+        return self.weight == obj.weight
+
     def is_discount_applicable(self) -> bool:
         # Is discount applicable
         ## Checks whether the package has discount or not based on conditions
@@ -39,7 +54,7 @@ class Package:
         ## 4. package distance should be greater or equals to discount minimum package distance
         ## 3. package distance should be lesser or equals to discount maximum package distance
 
-        for discount in self.discounts.__dict__.get("discounts"):
+        for discount in self.discounts.discounts:
             if (
                 discount.min_package_weight <= self.weight
                 and discount.min_destination_distance

@@ -5,7 +5,7 @@ from rich import print
 from typer import Typer
 
 from deliveryservice.delivery.cost_est import calculate_package_groups
-from deliveryservice.delivery.discount import (CollectinOfDiscount,
+from deliveryservice.delivery.discount import (CollectionOfDiscount,
                                                mock_all_discounts)
 from deliveryservice.delivery.package import Package
 from deliveryservice.delivery.packages import CollectionOfPackage
@@ -35,7 +35,7 @@ def find_delivery_cost_for_packages(
             int(list_values[2]),
             str(list_values[3]),
         ]
-        _discounts = CollectinOfDiscount()
+        _discounts = CollectionOfDiscount()
         _discounts.add_list_of_discount(discounts.get_discount_by_coupon([coupon]))
         pkg = Package(
             pkg_id=package_id,
@@ -73,7 +73,7 @@ def calculate_delivery_time_estimation(
             int(list_values[2]),
             str(list_values[3]),
         ]
-        _discounts = CollectinOfDiscount()
+        _discounts = CollectionOfDiscount()
         _discounts.add_list_of_discount(discounts.get_discount_by_coupon([coupon]))
         pkg = Package(
             pkg_id=package_id,
@@ -83,6 +83,7 @@ def calculate_delivery_time_estimation(
             discounts=_discounts,
         )
         all_packages.add_package(pkg)
+    all_packages.sort_packages()
 
     vehicle_count, vehicle_max_speed, vehicle_max_load = vehicle_details
     vehicles = CollectionOfVehicle()
@@ -91,14 +92,14 @@ def calculate_delivery_time_estimation(
 
     index = 0
     while True:
-        if len(packageGroups.pkg_grp) == index:
+        if len(packageGroups) == index:
             break
         for i in vehicles.vehicles:
-            packageGroups.packages[index].set_delivery_time_for_packages(
+            packageGroups.pkg_grp[index].set_delivery_time_for_packages(
                 i.max_speed, i.next_delivery_time
             )
             i.set_next_delivery_time(
-                packageGroups.packages[index].get_total_delivery_time()
+                packageGroups.pkg_grp[index].get_total_delivery_time()
             )
             index += 1
         vehicles.sort_vehicles()

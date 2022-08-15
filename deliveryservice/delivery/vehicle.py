@@ -1,9 +1,7 @@
-from dataclasses import dataclass
 from functools import total_ordering
 from typing import List
 
 
-@dataclass
 @total_ordering
 class Vehicle:
     vehicle_id: int
@@ -42,6 +40,9 @@ class CollectionOfVehicle:
     def __init__(self) -> None:
         self.vehicles = []
 
+    def __len__(self) -> int:
+        return len(self.vehicles)
+
     def add_vehicle(self, vehicle: Vehicle):
         self.vehicles.append(vehicle)
 
@@ -60,4 +61,4 @@ class CollectionOfVehicle:
             )
 
     def sort_vehicles(self) -> List[Vehicle]:
-        return sorted(self.vehicles)
+        self.vehicles = sorted(self.vehicles)

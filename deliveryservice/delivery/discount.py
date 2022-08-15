@@ -1,8 +1,6 @@
-from dataclasses import dataclass
 from typing import Dict, List
 
 
-@dataclass
 class Discount:
     coupon: str
     percentage: int
@@ -27,16 +25,18 @@ class Discount:
         self.min_package_weight = min_package_weight
         self.max_package_weight = max_package_weight
 
-    def calculateDiscountAmount(self, cost: int) -> int:
+    def calculate_discount_amount(self, cost: int) -> int:
         return int(cost / 100 * self.percentage)
 
 
-@dataclass
-class CollectinOfDiscount:
+class CollectionOfDiscount:
     discounts: List[Discount]
 
     def __init__(self) -> None:
         self.discounts = []
+
+    def __len__(self) -> int:
+        return len(self.discounts)
 
     def add_discount(self, discount: Discount):
         self.discounts.append(discount)
@@ -48,7 +48,7 @@ class CollectinOfDiscount:
     def calculate_discount_amount(self, cost: int) -> int:
         total_discount_amount: int = 0
         for i in self.discounts:
-            total_discount_amount += i.calculateDiscountAmount(cost)
+            total_discount_amount += i.calculate_discount_amount(cost)
         return total_discount_amount
 
     def get_discount_by_coupon(self, coupons: List[str]) -> List[Discount]:
@@ -59,16 +59,8 @@ class CollectinOfDiscount:
         return discounts
 
 
-coupons: Dict[str, str] = {
-    "coupon1": "OFR001",
-    "coupon2": "OFR002",
-    "coupon3": "OFFR002",
-    "coupon4": "OFR003",
-}
-
-
-def mock_all_discounts() -> CollectinOfDiscount:
-    allDiscounts = CollectinOfDiscount()
+def mock_all_discounts() -> CollectionOfDiscount:
+    allDiscounts = CollectionOfDiscount()
     allDiscounts.add_discount(Discount("OFR001", 10, 0, 200, 70, 200))
     allDiscounts.add_discount(Discount("OFR002", 7, 50, 150, 100, 250))
     allDiscounts.add_discount(Discount("OFFR002", 7, 50, 150, 100, 250))

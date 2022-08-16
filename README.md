@@ -38,5 +38,6 @@ python cli.py time --base-delivery-price 100 --package-details "PKG1 50 30 OFR00
 Run All testcase by `make test`
 
 ### Future Updates
-1. Added sqlalchemy to have db connect
-2. Build rest api around it
+1. time est is not working properly need to config
+2. Added sqlalchemy to have db connect
+3. Build rest api around it

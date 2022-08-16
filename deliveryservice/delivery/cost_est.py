@@ -44,9 +44,8 @@ def calculate_package_groups(max_load: int, packages: List[Package]) -> PackageG
     remaining_packages.add_list_of_package(packages)
 
     to_be_delivered_packages = PackageGroup()
-    while True:
-        if len(remaining_packages) == 0:
-            break
+    while len(remaining_packages) > 0:
+        __import__("ipdb").set_trace()
         packages_group = get_possible_packages(remaining_packages, max_load)
         packages_group.sort_package_group()
         remaining_packages = CollectionOfPackage()

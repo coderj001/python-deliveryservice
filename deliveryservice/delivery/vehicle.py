@@ -18,18 +18,6 @@ class Vehicle:
     def __lt__(self, obj) -> bool:
         return self.next_delivery_time < obj.next_delivery_time
 
-    def __gt__(self, obj):
-        return self.next_delivery_time > obj.next_delivery_time
-
-    def __le__(self, obj):
-        return self.next_delivery_time <= obj.next_delivery_time
-
-    def __ge__(self, obj):
-        return self.next_delivery_time >= obj.next_delivery_time
-
-    def __eq__(self, obj):
-        return self.next_delivery_time == obj.next_delivery_time
-
     def set_next_delivery_time(self, total_delivery_time: float):
         self.next_delivery_time = round(2 * total_delivery_time)
 

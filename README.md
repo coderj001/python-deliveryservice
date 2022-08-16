@@ -14,6 +14,25 @@ Application have appropriate guide use `--help` to get more info.<br />
 **Why use docker?**
 Docker enables you to separate your applications from your infrastructure so you can deliver software quickly.
 
+#### How to run
+**For cost**
+```
+python cli.py cost --base-delivery-price base_delivery_cost --package-details "pkg_id1 pkg_weight1_in_kg distance1_in_km offer_code1" --package-details "pkg_id2 pkg_weight2_in_kg distance2_in_km offer_code2" ...
+```
+example,
+```
+python cli.py cost --base-delivery-price 100 --package-details "PKG1 5 5 OFR001" --package-details "PKG2 15 5 OFR002" --package-details "PKG3 10 100 OFR003"
+```
+
+**For time**
+```
+python cli.py time --base-delivery-price base_delivery_cost --package-details "pkg_id1 pkg_weight1_in_kg distance1_in_km offer_code1" ... --vehicle-details no_of_vehicles max_speed max_carriable_weight
+```
+example,
+```
+python cli.py time --base-delivery-price 100 --package-details "PKG1 50 30 OFR001" --package-details "PKG2 75 125 OFFR0008" --package-details "PKG3 175 100 OFFR003" --package-details "PKG4 110 60 OFFR002" --package-details "PKG5 155 95 NA" --vehicle-details 2 70 200
+```
+
 
 #### Test
 Run All testcase by `make test`

@@ -6,6 +6,7 @@ class TestDiscount:
         discount = Discount("0FR002", 7, 50, 150, 100, 250)
         assert discount.calculate_discount_amount(100) == 7
 
+
 class TestCollectionOfDiscount:
     def test_calculate_discount_amount(self):
         discount1 = Discount("0FR001", 7, 50, 150, 100, 250)
@@ -15,7 +16,9 @@ class TestCollectionOfDiscount:
         discount2 = Discount("0FR002", 8, 51, 154, 90, 150)
         collection_of_discount.add_discount(discount2)
         assert len(collection_of_discount) == 2
-        total_discount_amount=collection_of_discount.calculate_discount_amount(cost=100)
+        total_discount_amount = collection_of_discount.calculate_discount_amount(
+            cost=100
+        )
         assert total_discount_amount == 15
 
     def test_get_discount_by_coupons(self):

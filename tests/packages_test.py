@@ -34,3 +34,7 @@ class TestCollectionOfPackage:
 
     def test_get_total_delivery_time(self, collection_of_packages):
         assert collection_of_packages.get_total_delivery_time() == 0
+        collection_of_packages.set_delivery_time_for_packages(
+            max_speed=10, additional_time=0
+        )
+        assert collection_of_packages.get_total_delivery_time() == 1

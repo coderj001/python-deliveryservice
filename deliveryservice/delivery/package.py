@@ -34,25 +34,7 @@ class Package:
     def __lt__(self, obj) -> bool:
         return self.weight < obj.weight
 
-    def __gt__(self, obj):
-        return self.weight > obj.weight
-
-    def __le__(self, obj):
-        return self.weight <= obj.weight
-
-    def __ge__(self, obj):
-        return self.weight >= obj.weight
-
-    def __eq__(self, obj):
-        return self.weight == obj.weight
-
     def is_discount_applicable(self) -> bool:
-        # Is discount applicable
-        ## Checks whether the package has discount or not based on conditions
-        ## 1. package weight should be greater or equals to discount minimun package weight
-        ## 2. package weight should be lesser or equals to discount maximum package weight
-        ## 4. package distance should be greater or equals to discount minimum package distance
-        ## 3. package distance should be lesser or equals to discount maximum package distance
 
         for discount in self.discounts.discounts:
             if (
@@ -65,10 +47,6 @@ class Package:
         return False
 
     def calculate_delivery_cost(self):
-        # Calculate Delivery Cost
-        ## Calculates delivery cost of the package and if there is any discount, it will be discounted from the total_cost of package.
-        ## Formulae:
-        ## totalCost_of_Package = (base_cost + (package_weight * 10) + (package_distance * 5)) - discountPrice
 
         total_cost = self.base_cost + (self.weight * 10) + (self.distance * 5)
         if self.is_discount_applicable():

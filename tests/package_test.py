@@ -1,4 +1,4 @@
-from deliveryservice.delivery.discount import (CollectionOfDiscount, Discount)
+from deliveryservice.delivery.discount import CollectionOfDiscount, Discount
 from deliveryservice.delivery.package import Package
 
 

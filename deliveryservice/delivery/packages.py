@@ -15,19 +15,9 @@ class CollectionOfPackage:
         return len(self.packages)
 
     def __lt__(self, obj) -> bool:
-        return self.get_total_weight() < obj.get_total_weight()
-
-    def __gt__(self, obj):
-        return self.get_total_weight() > obj.get_total_weight()
-
-    def __le__(self, obj):
-        return self.get_total_weight() <= obj.get_total_weight()
-
-    def __ge__(self, obj):
-        return self.get_total_weight() >= obj.get_total_weight()
-
-    def __eq__(self, obj):
-        return self.get_total_weight() == obj.get_total_weight()
+        if len(self) == len(obj):
+            return self.get_total_weight() > obj.get_total_weight()
+        return len(self) > len(obj)
 
     def sort_packages(self) -> None:
         self.packages = sorted(self.packages)
